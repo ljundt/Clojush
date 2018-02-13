@@ -93,15 +93,15 @@
   (let [novelty (get behavior-sparseness (:behaviors individual))
         novelty-inverse (/ 1 (inc novelty))]
     (assoc individual
-           :novelty novelty
+           :novelty-lex (list* (:novelty-lex individual) novelty)
            :meta-errors (replace {:novelty novelty-inverse} (:meta-errors individual)))))
 
-(defn calculate-ind-novelty
-  "Calculates novelty for each individual in the population with respect to the
-   rest of the population and the novelty-archive. Sets novelty to meta-error
-   if necessary."
+
+
+(defn calc-single-behavior-novelty
+  "Takes a population with a single item in behaviors, outputs population where each individual's
+  :novelty-lex has had a number appended"
   [pop-agents novelty-archive {:keys [use-single-thread] :as argmap}]
-  (print "Calculating novelty...") (flush)
   (let [pop-behaviors (map #(:behaviors (deref %)) pop-agents)
         pop-and-archive-behaviors (concat pop-behaviors
                                           (map :behaviors novelty-archive))
@@ -115,17 +115,34 @@
                   % nl-assign-novelty-to-individual behavior-sparseness)
                 pop-agents)))
   (when-not use-single-thread (apply await pop-agents)) ;; SYNCHRONIZE
-  (println "Done calculating novelty.")
-  (println "\nNovelty Numbers:" (sort > (map #(float (:novelty (deref %))) pop-agents))))
+  )
+
+
+(defn calculate-ind-novelty
+  "Calculates novelty for each individual in the population with respect to the
+   rest of the population and the novelty-archive. Sets novelty to meta-error
+   if necessary."
+  [pop-agents novelty-archive {:keys [use-single-thread] :as argmap}]
+  (print "Calculating novelty...") (flush)
+  (loop [num 0 pop pop-agents archive novelty-archive argmap argmap]
+    (if (>= num (count (:behaviors (first pop))))
+      (recur (inc num) (calc-single-behavior-novelty (map #(:behaviors (nth (:behaviors %) num) %) pop) archive argmap) archive argmap)))
+   (println "Done calculating novelty."))
+
 
 (defn novelty-lex-selection
-  "Returns an individual that does the best out of a tournament based on novelty."
-  [pop {:keys [tournament-size] :as argmap}]
-  (print "Novelty-lex selection")
-  (println)
-  (println pop)(flush))
-  ;(let [tournament-set (doall (for [_ (range tournament-size)]
-  ;                              (lrand-nth pop)))]
-  ;  (reduce (fn [i1 i2] (if (> (:novelty i1) (:novelty i2)) i1 i2))
-  ;          tournament-set)))
+  "Returns an individual that does the best on the novelty cases when considered one at a
+  time in random order."
+  [pop argmap]
+  (loop [survivors pop
+         cases (lshuffle (range (count (:novelty-lex (first pop)))))]
+    (if (or (empty? cases)
+            (empty? (rest survivors))
+            (< (lrand) (:lexicase-slippage argmap)))
+      (lrand-nth survivors)
+      (let [min-err-for-case (apply min (map #(nth % (first cases))
+                                             (map :novelty-lex survivors)))]
+        (recur (filter #(= (nth (:novelty-lex %) (first cases)) min-err-for-case)
+                       survivors)
+               (rest cases))))))
 
