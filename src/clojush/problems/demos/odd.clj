@@ -31,4 +31,6 @@
    :atom-generators (concat (registered-for-stacks [:integer :boolean :code :exec])
                             (list (fn [] (lrand-int 100))
                                   'in1))
+   :max-generations 3
+   :parent-selection :novelty-lexicase
    })

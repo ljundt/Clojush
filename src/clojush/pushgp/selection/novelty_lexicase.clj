@@ -93,7 +93,7 @@
   (let [novelty (get behavior-sparseness (:behaviors individual))
         novelty-inverse (/ 1 (inc novelty))]
     (assoc individual
-           :novelty-lex (list* (:novelty-lex individual) novelty)
+           :novelty-lex (list* (:novelty-lex individual) (list novelty))
            :meta-errors (replace {:novelty novelty-inverse} (:meta-errors individual)))))
 
 
@@ -111,19 +111,22 @@
         behavior-sparseness (nl-calculate-behavior-sparseness pop-and-archive-behaviors
                                                            behavior-distance-map
                                                            argmap)]
+    (println "first pop")
+    (println (first pop-agents))
     (dorun (map #((if use-single-thread swap! send)
                   % nl-assign-novelty-to-individual behavior-sparseness)
                 pop-agents)))
   (when-not use-single-thread (apply await pop-agents)) ;; SYNCHRONIZE
+  (map #(:novelty-lex (deref %)) pop-agents)
   )
 
 
-(defn calculate-ind-novelty
+(defn calculate-lex-novelty
   "Calculates novelty for each individual in the population with respect to the
    rest of the population and the novelty-archive. Sets novelty to meta-error
    if necessary."
   [pop-agents novelty-archive {:keys [use-single-thread] :as argmap}]
-  (print "Calculating novelty...") (flush)
+  (print "Calculating lexicase novelty...") (flush)
   (loop [num 0 pop pop-agents archive novelty-archive argmap argmap]
     (if (>= num (count (:behaviors (first pop))))
       (recur (inc num) (calc-single-behavior-novelty (map #(:behaviors (nth (:behaviors %) num) %) pop) archive argmap) archive argmap)))
