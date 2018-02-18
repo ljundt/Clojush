@@ -1,8 +1,8 @@
 Command line args: clojush.problems.demos.odd
 ######################################
 Parameters set at command line or in problem file argmap; may or may not be default:
-atom-generators = (code_atom code_car integer_sub integer_inc boolean_stackdepth boolean_pop exec_yankdup integer_yankdup boolean_swap exec_shove code_eq exec_y boolean_yank integer_eq code_contains code_do*count integer_mult code_length boolean_or code_position boolean_empty code_cdr exec_do*while code_list code_swap exec_dup_items boolean_dup_items exec_empty exec_rot code_pop code_subst exec_dup boolean_flush exec_k boolean_xor integer_gte boolean_dup_times code_quote boolean_shove boolean_rot integer_div integer_lte integer_mod code_null exec_do*count integer_rot integer_add integer_shove integer_max code_wrap code_flush code_append code_yankdup code_rot integer_stackdepth code_dup_times integer_dup_times boolean_dup exec_dup_times exec_eq integer_yank exec_while integer_min exec_swap code_do*range code_dup_items integer_dup_items code_do* exec_do*range exec_if code_frominteger boolean_invert_first_then_and integer_fromboolean code_do boolean_frominteger code_map boolean_eq integer_flush integer_gt code_dup boolean_not code_if exec_do*times code_nthcdr exec_pop code_extract code_stackdepth exec_s code_do*times code_noop code_yank integer_lt exec_noop code_size integer_swap integer_dup exec_yank integer_pop integer_empty code_empty integer_dec code_cons code_member exec_stackdepth boolean_and exec_flush exec_when code_insert code_fromboolean code_shove boolean_invert_second_then_and code_container code_nth boolean_yankdup #object[clojush.problems.demos.odd$fn__6243 0x3510ae90 clojush.problems.demos.odd$fn__6243@3510ae90] in1)
-error-function = #object[clojush.problems.demos.odd$fn__6227 0x2f9bdbb5 clojush.problems.demos.odd$fn__6227@2f9bdbb5]
+atom-generators = (code_atom code_car integer_sub integer_inc boolean_stackdepth boolean_pop exec_yankdup integer_yankdup boolean_swap exec_shove code_eq exec_y boolean_yank integer_eq code_contains code_do*count integer_mult code_length boolean_or code_position boolean_empty code_cdr exec_do*while code_list code_swap exec_dup_items boolean_dup_items exec_empty exec_rot code_pop code_subst exec_dup boolean_flush exec_k boolean_xor integer_gte boolean_dup_times code_quote boolean_shove boolean_rot integer_div integer_lte integer_mod code_null exec_do*count integer_rot integer_add integer_shove integer_max code_wrap code_flush code_append code_yankdup code_rot integer_stackdepth code_dup_times integer_dup_times boolean_dup exec_dup_times exec_eq integer_yank exec_while integer_min exec_swap code_do*range code_dup_items integer_dup_items code_do* exec_do*range exec_if code_frominteger boolean_invert_first_then_and integer_fromboolean code_do boolean_frominteger code_map boolean_eq integer_flush integer_gt code_dup boolean_not code_if exec_do*times code_nthcdr exec_pop code_extract code_stackdepth exec_s code_do*times code_noop code_yank integer_lt exec_noop code_size integer_swap integer_dup exec_yank integer_pop integer_empty code_empty integer_dec code_cons code_member exec_stackdepth boolean_and exec_flush exec_when code_insert code_fromboolean code_shove boolean_invert_second_then_and code_container code_nth boolean_yankdup #object[clojush.problems.demos.odd$fn__6184 0x63a742e3 clojush.problems.demos.odd$fn__6184@63a742e3] in1)
+error-function = #object[clojush.problems.demos.odd$fn__6168 0x5c7b1796 clojush.problems.demos.odd$fn__6168@5c7b1796]
 max-generations = 3
 parent-selection = :novelty-lexicase
 use-single-thread = true
@@ -15,7 +15,7 @@ age-combining-function = :average
 age-mediated-parent-selection = false
 alignment-deviation = 10
 alternation-rate = 0.01
-atom-generators = (code_atom code_car integer_sub integer_inc boolean_stackdepth boolean_pop exec_yankdup integer_yankdup boolean_swap exec_shove code_eq exec_y boolean_yank integer_eq code_contains code_do*count integer_mult code_length boolean_or code_position boolean_empty code_cdr exec_do*while code_list code_swap exec_dup_items boolean_dup_items exec_empty exec_rot code_pop code_subst exec_dup boolean_flush exec_k boolean_xor integer_gte boolean_dup_times code_quote boolean_shove boolean_rot integer_div integer_lte integer_mod code_null exec_do*count integer_rot integer_add integer_shove integer_max code_wrap code_flush code_append code_yankdup code_rot integer_stackdepth code_dup_times integer_dup_times boolean_dup exec_dup_times exec_eq integer_yank exec_while integer_min exec_swap code_do*range code_dup_items integer_dup_items code_do* exec_do*range exec_if code_frominteger boolean_invert_first_then_and integer_fromboolean code_do boolean_frominteger code_map boolean_eq integer_flush integer_gt code_dup boolean_not code_if exec_do*times code_nthcdr exec_pop code_extract code_stackdepth exec_s code_do*times code_noop code_yank integer_lt exec_noop code_size integer_swap integer_dup exec_yank integer_pop integer_empty code_empty integer_dec code_cons code_member exec_stackdepth boolean_and exec_flush exec_when code_insert code_fromboolean code_shove boolean_invert_second_then_and code_container code_nth boolean_yankdup #object[clojush.problems.demos.odd$fn__6243 0x3510ae90 clojush.problems.demos.odd$fn__6243@3510ae90] in1)
+atom-generators = (code_atom code_car integer_sub integer_inc boolean_stackdepth boolean_pop exec_yankdup integer_yankdup boolean_swap exec_shove code_eq exec_y boolean_yank integer_eq code_contains code_do*count integer_mult code_length boolean_or code_position boolean_empty code_cdr exec_do*while code_list code_swap exec_dup_items boolean_dup_items exec_empty exec_rot code_pop code_subst exec_dup boolean_flush exec_k boolean_xor integer_gte boolean_dup_times code_quote boolean_shove boolean_rot integer_div integer_lte integer_mod code_null exec_do*count integer_rot integer_add integer_shove integer_max code_wrap code_flush code_append code_yankdup code_rot integer_stackdepth code_dup_times integer_dup_times boolean_dup exec_dup_times exec_eq integer_yank exec_while integer_min exec_swap code_do*range code_dup_items integer_dup_items code_do* exec_do*range exec_if code_frominteger boolean_invert_first_then_and integer_fromboolean code_do boolean_frominteger code_map boolean_eq integer_flush integer_gt code_dup boolean_not code_if exec_do*times code_nthcdr exec_pop code_extract code_stackdepth exec_s code_do*times code_noop code_yank integer_lt exec_noop code_size integer_swap integer_dup exec_yank integer_pop integer_empty code_empty integer_dec code_cons code_member exec_stackdepth boolean_and exec_flush exec_when code_insert code_fromboolean code_shove boolean_invert_second_then_and code_container code_nth boolean_yankdup #object[clojush.problems.demos.odd$fn__6184 0x63a742e3 clojush.problems.demos.odd$fn__6184@63a742e3] in1)
 autoconstructive = false
 autoconstructive-boolean-rand-enrichment = 0
 autoconstructive-clone-probability = 0.0
@@ -40,7 +40,7 @@ edn-log-filename = log.edn
 epigenetic-markers = [:close]
 epsilon-lexicase-epsilon = nil
 epsilon-lexicase-probability = 1
-error-function = #object[clojush.problems.demos.odd$fn__6227 0x2f9bdbb5 clojush.problems.demos.odd$fn__6227@2f9bdbb5]
+error-function = #object[clojush.problems.demos.odd$fn__6168 0x5c7b1796 clojush.problems.demos.odd$fn__6168@5c7b1796]
 error-threshold = 0
 evalpush-limit = 150
 evalpush-time-limit = 0
@@ -80,10 +80,10 @@ print-homology-data = false
 print-json-logs = false
 print-selection-counts = false
 print-timings = false
-problem-specific-initial-report = #object[clojush.pushgp.report$default_problem_specific_initial_report 0x669a5514 clojush.pushgp.report$default_problem_specific_initial_report@669a5514]
-problem-specific-report = #object[clojush.pushgp.report$default_problem_specific_report 0x7ac7a3bb clojush.pushgp.report$default_problem_specific_report@7ac7a3bb]
+problem-specific-initial-report = #object[clojush.pushgp.report$default_problem_specific_initial_report 0x38945ff9 clojush.pushgp.report$default_problem_specific_initial_report@38945ff9]
+problem-specific-report = #object[clojush.pushgp.report$default_problem_specific_report 0x33040186 clojush.pushgp.report$default_problem_specific_report@33040186]
 random-screen = false
-random-seed = 54 -53 -57 119 96 52 9 3 -82 25 -84 60 -60 57 59 31
+random-seed = -41 111 69 -28 -104 29 112 -93 -51 91 -28 -123 -68 -101 17 27
 random-threshold-lexicase-probability = 1
 record-host = nil
 replace-child-that-exceeds-size-limit-with = :random
@@ -120,5 +120,3 @@ Lia Version
 Generating initial population...
 Processing generation: 0
 Computing errors... Done computing errors.
-Calculating lexicase novelty...nilnilfirst pop
-#object[clojure.lang.Atom 0x60af1fd5 {:status :ready, :val #clojush.individual.individual{:genome [{:close 1, :instruction integer_dup_items} {:close 1, :instruction code_do*} {:close 0, :instruction code_dup_items}], :program (integer_dup_items code_do* code_dup_items), :errors [1000 1000 1000 1000 1000 1000 1000 1000 1000 1000], :behaviors nil, :total-error 10000, :normalized-error 10000, :weighted-error nil, :novelty nil, :meta-errors [], :history nil, :ancestors nil, :uuid #uuid "49169761-5d47-4d43-acb2-269c7c65390c", :parent-uuids nil, :genetic-operators :random, :age 0, :grain-size 1, :is-random-replacement false}}]

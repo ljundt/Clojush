@@ -12,7 +12,7 @@
   [ind pop]
   (let [behaviors (:behaviors ind)
         pop-behaviors (map (:behaviors pop))
-        case-behavior-vector (map (apply map vector pop-behaviors))
+        case-behavior-vector (apply map  pop-behaviors)
         ]
     (println "IN CALCULATE INDIVIDUAL NOVELTY")
     (println behaviors)
