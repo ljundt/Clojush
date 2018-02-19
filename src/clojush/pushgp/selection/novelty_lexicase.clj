@@ -11,13 +11,11 @@
   "Calculates the novelty of each "
   [ind pop]
   (let [behaviors (:behaviors ind)
-        pop-behaviors (map (:behaviors pop))
-        case-behavior-vector (map (apply map vector pop-behaviors))
+        pop-behaviors (map #(cond
+                              (= (:behaviors %) nil) '(:nil) ;;had issue where when value was nil, case-behavior-vector was empty
+                              :else (:behaviors %)) pop)
+        case-behavior-vector (apply map list pop-behaviors)
         ]
-    (println "IN CALCULATE INDIVIDUAL NOVELTY")
-    (println behaviors)
-    (println pop-behaviors)
-    (println case-behavior-vector)
     (assoc ind :lex-novelty (map (novelty-difference behaviors case-behavior-vector)))))
 
 
@@ -47,4 +45,3 @@
         (recur (filter #(= (nth (:lex-novelty %) (first cases)) min-err-for-case)
                        survivors)
                (rest cases))))))
-

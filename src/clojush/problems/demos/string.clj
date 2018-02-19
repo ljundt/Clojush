@@ -93,6 +93,7 @@
                                                        #(lrand-nth (str "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                                                         "abcdefghijklmnopqrstuvwxyz"
                                                                         "0123456789"))))))
+  :parent-selection :novelty-lexicase
   :population-size 500
   :max-generations 200
   :epigenetic-markers []
