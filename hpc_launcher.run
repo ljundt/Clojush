@@ -7,7 +7,7 @@
 #PBS -j oe         
 #PBS -l walltime=03:00:00 
 #PBS -r y
-#PBS -o /home/ljundt/Clojush/
+#PBS -o /home/ljundt/Clojush/Output
 #PBS -t 0-99
 # This last line is the range of the number of jobs to start, inclusive
 
