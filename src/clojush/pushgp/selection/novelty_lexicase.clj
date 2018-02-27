@@ -9,14 +9,14 @@
 
 (defn calculate-individual-novelty
   "Calculates the novelty of each "
-  [ind pop]
+  [ind novelty-archive pop]
   (let [behaviors (:behaviors ind)
-        pop-behaviors (map #(cond
+        pop-behaviors (concat (map #(cond
                               (= (:behaviors %) nil) '(:nil) ;;had issue where when value was nil, case-behavior-vector was empty
-                              :else (:behaviors %)) pop)
+                              :else (:behaviors %)) pop) (map :behaviors novelty-archive))
         case-behavior-vector (apply map list pop-behaviors)
         ]
-    (assoc ind :lex-novelty (map (novelty-difference behaviors case-behavior-vector)))))
+    (assoc ind :lex-novelty (map #(novelty-difference %1 %2) behaviors case-behavior-vector))))
 
 
 (defn calculate-lex-novelty
@@ -25,7 +25,7 @@
   [pop-agents novelty-archive {:keys [use-single-thread] :as argmap}]
   (dorun (map #((if use-single-thread swap! send) %
                 calculate-individual-novelty
-                (map deref pop-agents))
+                novelty-archive (map deref pop-agents))
               pop-agents))
   (when-not use-single-thread (apply await pop-agents)))
 

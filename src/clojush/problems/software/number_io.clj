@@ -143,7 +143,8 @@
    :evalpush-limit 200
    :population-size 1000
    :max-generations 200
-   :parent-selection :lexicase
+   :parent-selection :novelty-lexicase
+   :individuals-for-novelty-archive-per-generation 1
    :epigenetic-markers []
    :genetic-operator-probabilities {:alternation 0.3
                                     :uniform-mutation 0.2

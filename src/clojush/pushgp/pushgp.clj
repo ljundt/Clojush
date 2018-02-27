@@ -173,8 +173,10 @@
   (when (or (= (:parent-selection @push-argmap) :novelty-search)
             (some #{:novelty} (:meta-error-categories @push-argmap)))
     (calculate-novelty pop-agents novelty-archive @push-argmap))
+  ;;Novelty lexicase
   (when (= (:parent-selection @push-argmap) :novelty-lexicase)
     (calculate-lex-novelty pop-agents novelty-archive @push-argmap))
+  
   (timer @push-argmap :other)
   ;; report and check for success
   (let [[outcome best] (report-and-check-for-success (vec (doall (map deref pop-agents)))
@@ -226,8 +228,7 @@
      (timer @push-argmap :initialization)
      (when (:print-timings @push-argmap)
        (r/config-data! [:initialization-ms] (:initialization @timer-atom)))
-     (println "Lia Version")
-     (println "\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
+     (println "\n********************************************************")
      (println "\nGenerating initial population...") (flush)
      (let [pop-agents (make-pop-agents @push-argmap)
            child-agents (make-child-agents @push-argmap)
