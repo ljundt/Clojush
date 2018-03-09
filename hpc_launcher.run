@@ -20,7 +20,7 @@ NAMESPACE="replace-space-with-newline"
 #NAMESPACE="syllables"
 #NAMESPACE="vector-average"
 
-SELECTION="novelty-lexicase"
+SELECTION="novelty-dist"
 
 DIRECTORY="$PBS_O_HOME/Results/$SELECTION/$NAMESPACE"
 
