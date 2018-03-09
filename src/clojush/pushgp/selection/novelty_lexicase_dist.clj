@@ -2,27 +2,10 @@
   (:use [clojush random util globals])
   (:require [clojure.math.numeric-tower :as math]))
 
-(defn make-test-res-map
-  "Makes a map of the different behaviors
-  and how many there are in the population"
-  [behaviors]
-  (loop [behaviors behaviors res {}]
-    (cond
-      (empty? behaviors) res
-      :else
-      (let [curbehavior (first behaviors)]
-        (cond
-          (contains? res curbehavior) (recur (rest behaviors)
-                                             (assoc res curbehavior
-                                                    (inc (get res curbehavior))))
-          :else (recur (rest behaviors) (assoc res curbehavior 1)))))))
-
 (defn get-behavior-distance
   "Gets the difference between two behaviors
    based on their type"
   [b1 b2]
-  ;(println b1)
-  ;(println b2)
   (cond
     ; Handles equal behaviors, including if both are :no-stack-item
     (= b1 b2) 0
@@ -40,35 +23,25 @@
 
 (defn calculate-behavior-dist-map
   "Calculates a map storing the distances between any two behaviors, of the form:
-    {behavior1 ([behavior1 dist1] [behavior2 dist2] [behavior3 dist3] ...}}"
+    {behavior1 (behavior1 dist1 behavior2 dist2 behavior3 dist3 ...}}"
   [behavior all-behaviors]
-  (let [behavior-dist-map {}]
-    (map (fn [other-behavior]
-           (vector other-behavior
-                   (if (contains? behavior-dist-map other-behavior)
-                     (get-in behavior-dist-map
-                             [other-behavior behavior])
-                     (get-behavior-distance behavior other-behavior)))) all-behaviors)))
-
-  ;(loop [behavior behavior
-  ;       pop-behaviors distinct-pop-and-archive-behaviors
-  ;       behavior-distance-map {}]
-  ;  (if (empty? pop-behaviors)
-  ;    behavior-distance-map
-  ;    (let [distances-from-behavior
-  ;          (into {}
-   ;               (map (fn [other-behavior]
-   ;                      (vector other-behavior
-   ;                              (if (contains? behavior-distance-map other-behavior)
-    ;;                               (get-in behavior-distance-map
-     ;                                      [other-behavior behavior])
-      ;                             (do (println behavior)
-       ;                            (println other-behavior)
-        ;                           (get-behavior-distance behavior other-behavior)))))
-         ;              distinct-pop-and-archive-behaviors))]
-      ;  (recur behavior
-       ;        (rest pop-behaviors)
-        ;       (assoc behavior-distance-map behavior distances-from-behavior))))))
+  (loop [behavior behavior
+         pop-behaviors all-behaviors
+         behavior-distance-map {}]
+    (if (empty? pop-behaviors)
+      behavior-distance-map
+      (let [distances-from-behavior
+            (into {}
+                  (map (fn [other-behavior]
+                         (vector other-behavior
+                                 (if (contains? behavior-distance-map other-behavior)
+                                   (get-in behavior-distance-map
+                                           [other-behavior behavior])
+                                   (get-behavior-distance behavior other-behavior))))
+                      all-behaviors))]
+        (recur behavior
+               (rest pop-behaviors)
+               (assoc behavior-distance-map behavior distances-from-behavior))))))
 
 
 (defn calculate-behavior-sparseness
@@ -76,26 +49,23 @@
    distances between it and its k nearest neighbors. First, it must look up those
    distances using the behavior-distance-map."
   [pop-and-archive-behaviors behavior-distance-map {:keys [novelty-number-of-neighbors-k]}]
-  (println pop-and-archive-behaviors)
-  (println behavior-distance-map)
-  (let [behavior-distances-to-others behavior-distance-map]
-        ;;(into {}
-          ;;    (for [[behavior dist] behavior-distance-map]
-            ;;    (vector behavior
-              ;;          (map dist pop-and-archive-behaviors))))]
-    (into {}
+  (let [behavior-distances-to-others
+        (into {}
+              (for [[behavior dist] behavior-distance-map]
+                (vector behavior
+                        (map dist pop-and-archive-behaviors))))]
+    ;(into {}
           (for [[behavior distances] behavior-distances-to-others]
-            (vector behavior
+           ; (vector behavior
                     (/ (apply +'
                               (take novelty-number-of-neighbors-k
                                     (sort distances)))
-                       novelty-number-of-neighbors-k))))))
-
+                       novelty-number-of-neighbors-k))))
 
 (defn ind-novelty
   [behavior case-behaviors argmap]
   (let [behavior-map (calculate-behavior-dist-map behavior case-behaviors)]
-    (calculate-behavior-sparseness case-behaviors behavior-map argmap)))
+    (first (calculate-behavior-sparseness case-behaviors behavior-map argmap))))
 
 (defn calculate-individual-novelty
   "Calculates the novelty of each individual"
@@ -106,18 +76,13 @@
                               :else (:behaviors %)) pop) (map :behaviors novelty-archive))
         case-behavior-vector (apply map list pop-behaviors)
         ]
-    (assoc ind :lex-novelty (map #(ind-novelty %1 %2 %3) behaviors case-behavior-vector argmap))))
-
-(calculate-individual-novelty {:behaviors [0 1]} {} '({:behaviors [1 2]} {:behaviors [2 2]}) {:use-single-thread true
-                                                                                                  :novelty-number-of-neighbors-k 1})
-
-
+    (assoc ind :lex-novelty (map #(ind-novelty %1 %2 argmap) behaviors case-behavior-vector))))
 
 
 (defn calculate-lex-novelty
   "Take a population of agents, derefs them, and calculates novelty of each
   individual (based on how many individuals have the same result for x test"
-  [pop-agents novelty-archive {:keys [use-single-thread] :as argmap}]
+  [pop-agents novelty-archive {:keys [use-single-thread novelty-number-of-neighbors-k] :as argmap}]
   (dorun (map #((if use-single-thread swap! send) %
                 calculate-individual-novelty
                 novelty-archive (map deref pop-agents) argmap)
