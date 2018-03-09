@@ -7,7 +7,7 @@
 #PBS -j oe         
 #PBS -l walltime=72:00:00 
 #PBS -r y
-#PBS -o /home/ljundt/Results/HPC-files/
+#PBS -o /home/ljundt/Results/RunOutput/
 #PBS -t 0-99
 # This last line is the range of the number of jobs to start, inclusive
 
@@ -22,7 +22,7 @@ NAMESPACE="replace-space-with-newline"
 
 SELECTION="novelty-lexicase"
 
-DIRECTORY="$PBS_O_HOME/Results/parent-selection-v2/$SELECTION/$NAMESPACE"
+DIRECTORY="$PBS_O_HOME/Results/$SELECTION/$NAMESPACE"
 
 PUSHARGS=":parent-selection :$SELECTION"
 
