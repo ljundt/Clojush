@@ -44,7 +44,7 @@
                (assoc behavior-distance-map behavior distances-from-behavior))))))
 
 
-(defn calculate-behavior-sparseness
+(defn calculate-case-behavior-sparseness
   "Calculates the sparseness/novelty of an individual by averaging together the
    distances between it and its k nearest neighbors. First, it must look up those
    distances using the behavior-distance-map."
@@ -65,9 +65,9 @@
 (defn ind-novelty
   [behavior case-behaviors argmap]
   (let [behavior-map (calculate-behavior-dist-map behavior case-behaviors)]
-    (first (calculate-behavior-sparseness case-behaviors behavior-map argmap))))
+    (first (calculate-case-behavior-sparseness case-behaviors behavior-map argmap))))
 
-(defn calculate-individual-novelty
+(defn calculate-ind-novelty
   "Calculates the novelty of each individual"
   [ind novelty-archive pop argmap]
   (let [behaviors (:behaviors ind)
@@ -79,29 +79,29 @@
     (assoc ind :lex-novelty (map #(ind-novelty %1 %2 argmap) behaviors case-behavior-vector))))
 
 
-(defn calculate-lex-novelty
+(defn calculate-lex-dist-novelty
   "Take a population of agents, derefs them, and calculates novelty of each
   individual (based on how many individuals have the same result for x test"
   [pop-agents novelty-archive {:keys [use-single-thread novelty-number-of-neighbors-k] :as argmap}]
   (dorun (map #((if use-single-thread swap! send) %
-                calculate-individual-novelty
+                calculate-ind-novelty
                 novelty-archive (map deref pop-agents) argmap)
               pop-agents))
   (when-not use-single-thread (apply await pop-agents)))
 
 
-(defn novelty-lex-selection
-  "Returns an individual that does the best on the novelty cases when considered one at a
-  time in random order."
-  [pop argmap]
-  (loop [survivors pop
-         cases (lshuffle (range (count (:novelty-lex (first pop)))))]
-    (if (or (empty? cases)
-            (empty? (rest survivors))
-            (< (lrand) (:lexicase-slippage argmap)))
-      (lrand-nth survivors)
-      (let [min-err-for-case (apply min (map #(nth % (first cases))
-                                             (map :lex-novelty survivors)))]
-        (recur (filter #(= (nth (:lex-novelty %) (first cases)) min-err-for-case)
-                       survivors)
-               (rest cases))))))
+;; (defn novelty-lex-selection
+;;   "Returns an individual that does the best on the novelty cases when considered one at a
+;;   time in random order."
+;;   [pop argmap]
+;;   (loop [survivors pop
+;;          cases (lshuffle (range (count (:novelty-lex (first pop)))))]
+;;     (if (or (empty? cases)
+;;             (empty? (rest survivors))
+;;             (< (lrand) (:lexicase-slippage argmap)))
+;;       (lrand-nth survivors)
+;;       (let [min-err-for-case (apply min (map #(nth % (first cases))
+;;                                              (map :lex-novelty survivors)))]
+;;         (recur (filter #(= (nth (:lex-novelty %) (first cases)) min-err-for-case)
+;;                        survivors)
+;;                (rest cases))))))

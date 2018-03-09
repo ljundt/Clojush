@@ -8,7 +8,7 @@
          tag zip environment input-output genome]
         [clojush.pushgp breed report]
         [clojush.pushgp.selection
-         selection epsilon-lexicase elitegroup-lexicase implicit-fitness-sharing novelty novelty-lexicase]
+         selection epsilon-lexicase elitegroup-lexicase implicit-fitness-sharing novelty novelty-lexicase novelty-lexicase-dist]
         [clojush.experimental.decimation]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -176,6 +176,9 @@
   ;;Novelty lexicase
   (when (= (:parent-selection @push-argmap) :novelty-lexicase)
     (calculate-lex-novelty pop-agents novelty-archive @push-argmap))
+  ;;Novelty Lexicase based on distance
+  (when (= (:parent-selection @push-argmap) :novelty-dist)
+    (calculate-lex-dist-novelty pop-agents novelty-archive @push-argmap))
   
   (timer @push-argmap :other)
   ;; report and check for success
