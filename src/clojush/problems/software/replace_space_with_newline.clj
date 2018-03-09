@@ -187,11 +187,11 @@
   {:error-function replace-space-with-newline-error-function
    :atom-generators replace-space-with-newline-atom-generators
    :max-points 3200
-   :max-genome-size-in-initial-program 400
+   :max-genome-size-in-initial-program 20
    :evalpush-limit 1600
    :population-size 1000
-   :max-generations 300
-   :parent-selection :novelty-lexicase
+   :max-generations 3
+   :parent-selection :novelty-search
    :individuals-for-novelty-archive-per-generation 1
    :genetic-operator-probabilities {:alternation 0.2
                                     :uniform-mutation 0.2

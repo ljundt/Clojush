@@ -40,7 +40,7 @@
 
 (defn calculate-behavior-dist-map
   "Calculates a map storing the distances between any two behaviors, of the form:
-    {behavior1 {behavior1 dist11 behavior2 dist12 behavior3 dist13 ...}}"
+    {behavior1 ([behavior1 dist1] [behavior2 dist2] [behavior3 dist3] ...}}"
   [behavior all-behaviors]
   (let [behavior-dist-map {}]
     (map (fn [other-behavior]
@@ -49,6 +49,7 @@
                      (get-in behavior-dist-map
                              [other-behavior behavior])
                      (get-behavior-distance behavior other-behavior)))) all-behaviors)))
+
   ;(loop [behavior behavior
   ;       pop-behaviors distinct-pop-and-archive-behaviors
   ;       behavior-distance-map {}]
@@ -75,11 +76,13 @@
    distances between it and its k nearest neighbors. First, it must look up those
    distances using the behavior-distance-map."
   [pop-and-archive-behaviors behavior-distance-map {:keys [novelty-number-of-neighbors-k]}]
-  (let [behavior-distances-to-others
-        (into {}
-              (for [[behavior dist-map] behavior-distance-map]
-                (vector behavior
-                        (map dist-map pop-and-archive-behaviors))))]
+  (println pop-and-archive-behaviors)
+  (println behavior-distance-map)
+  (let [behavior-distances-to-others behavior-distance-map]
+        ;;(into {}
+          ;;    (for [[behavior dist] behavior-distance-map]
+            ;;    (vector behavior
+              ;;          (map dist pop-and-archive-behaviors))))]
     (into {}
           (for [[behavior distances] behavior-distances-to-others]
             (vector behavior
@@ -87,6 +90,7 @@
                               (take novelty-number-of-neighbors-k
                                     (sort distances)))
                        novelty-number-of-neighbors-k))))))
+
 
 (defn ind-novelty
   [behavior case-behaviors argmap]
@@ -96,10 +100,6 @@
 (defn calculate-individual-novelty
   "Calculates the novelty of each individual"
   [ind novelty-archive pop argmap]
-  (println ind)
-  (println novelty-archive)
-  (println pop)
-  
   (let [behaviors (:behaviors ind)
         pop-behaviors (concat (map #(cond
                               (= (:behaviors %) nil) '(:nil) ;;had issue where when value was nil, case-behavior-vector was empty

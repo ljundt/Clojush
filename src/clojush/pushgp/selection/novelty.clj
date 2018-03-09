@@ -70,11 +70,14 @@
    distances between it and its k nearest neighbors. First, it must look up those
    distances using the behavior-distance-map."
   [pop-and-archive-behaviors behavior-distance-map {:keys [novelty-number-of-neighbors-k]}]
+  (println pop-and-archive-behaviors)
+  (println behavior-distance-map)
   (let [behavior-distances-to-others
         (into {}
               (for [[behavior dist-map] behavior-distance-map]
                 (vector behavior
                         (map dist-map pop-and-archive-behaviors))))]
+    (println behavior-distances-to-others)
     (into {}
           (for [[behavior distances] behavior-distances-to-others]
             (vector behavior
@@ -115,6 +118,7 @@
   (when-not use-single-thread (apply await pop-agents)) ;; SYNCHRONIZE
   (println "Done calculating novelty.")
   (println "\nNovelty Numbers:" (sort > (map #(float (:novelty (deref %))) pop-agents))))
+
 
 (defn novelty-tournament-selection
   "Returns an individual that does the best out of a tournament based on novelty."
