@@ -3,7 +3,7 @@
 #PBS -l mem=20GB
 #PBS -q una
 #PBS -M ljundt@hamilton.edu
-#PBS -m ae
+#PBS -m a
 #PBS -j oe         
 #PBS -l walltime=72:00:00 
 #PBS -r y
