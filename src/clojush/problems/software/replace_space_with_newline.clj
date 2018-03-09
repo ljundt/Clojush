@@ -191,7 +191,7 @@
    :evalpush-limit 1600
    :population-size 1000
    :max-generations 3
-   :parent-selection :novelty-search
+   :parent-selection :novelty-lexicase
    :individuals-for-novelty-archive-per-generation 1
    :genetic-operator-probabilities {:alternation 0.2
                                     :uniform-mutation 0.2
