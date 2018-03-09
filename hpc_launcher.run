@@ -1,27 +1,26 @@
-#PBS -N Syll-tourney
+#PBS -N NLex-RSWN
 #PBS -l nodes=1:ppn=8
 #PBS -l mem=20GB
 #PBS -q una
-#PBS -M thelmuth@hamilton.edu
-#PBS -m n
+#PBS -M ljundt@hamilton.edu
+#PBS -m ae
 #PBS -j oe         
 #PBS -l walltime=72:00:00 
 #PBS -r y
-#PBS -o /home/thelmuth/Results/HPC-files/
+#PBS -o /home/ljundt/Results/HPC-files/
 #PBS -t 0-99
 # This last line is the range of the number of jobs to start, inclusive
 
 # NOTE: Directions for use are at the bottom of this file.
-
 # Depends on your shell. Uncomment the one you need. Bash uncommented by default
 NP=`cat $PBS_NODEFILE | wc -l`  # Bash syntax
 #setenv NP `cat $PBS_NODEFILE | wc -l` # tcsh/csh syntax
 
-#NAMESPACE="replace-space-with-newline"
-NAMESPACE="syllables"
+NAMESPACE="replace-space-with-newline"
+#NAMESPACE="syllables"
 #NAMESPACE="vector-average"
 
-SELECTION="tournament"
+SELECTION="novelty-lexicase"
 
 DIRECTORY="$PBS_O_HOME/Results/parent-selection-v2/$SELECTION/$NAMESPACE"
 
