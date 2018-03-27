@@ -78,7 +78,6 @@
         ]
     (assoc ind :lex-novelty (concat (map #(ind-novelty %1 %2 argmap) behaviors case-behavior-vector) (:errors ind)))))
 
-
 (defn calculate-lex-dist-novelty
   "Take a population of agents, derefs them, and calculates novelty of each
   individual (based on how many individuals have the same result for x test"
