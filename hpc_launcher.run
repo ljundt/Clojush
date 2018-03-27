@@ -16,11 +16,12 @@
 NP=`cat $PBS_NODEFILE | wc -l`  # Bash syntax
 #setenv NP `cat $PBS_NODEFILE | wc -l` # tcsh/csh syntax
 
-NAMESPACE="replace-space-with-newline"
-#NAMESPACE="syllables"
+#NAMESPACE="replace-space-with-newline"
+NAMESPACE="syllables"
 #NAMESPACE="vector-average"
 
-SELECTION="novelty-dist"
+#SELECTION="novelty-dist"
+SELECTION="novelty-lexicase"
 
 DIRECTORY="$PBS_O_HOME/Results/$SELECTION/$NAMESPACE"
 
