@@ -76,7 +76,7 @@
                               :else (:behaviors %)) pop) (map :behaviors novelty-archive))
         case-behavior-vector (apply map list pop-behaviors)
         ]
-    (assoc ind :lex-novelty (map #(ind-novelty %1 %2 argmap) behaviors case-behavior-vector))))
+    (assoc ind :lex-novelty (concat (map #(ind-novelty %1 %2 argmap) behaviors case-behavior-vector) (:errors ind)))))
 
 
 (defn calculate-lex-dist-novelty
