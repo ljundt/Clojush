@@ -25,7 +25,7 @@ SELECTION="novelty-lexicase"
 
 DIRECTORY="$PBS_O_HOME/Results/$SELECTION/$NAMESPACE"
 
-PUSHARGS=":parent-selection :$SELECTION"
+PUSHARGS=":parent-selection :$SELECTION :individuals-for-novelty-archive-per-generation 1"
 
 PROBLEM="clojush.problems.software.$NAMESPACE"
 
