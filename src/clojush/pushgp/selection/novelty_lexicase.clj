@@ -35,7 +35,7 @@
   time in random order."
   [pop argmap]
   (loop [survivors pop
-         cases (lshuffle (range (count (:novelty-lex (first pop)))))]
+         cases (lshuffle (range (count (:lex-novelty (first pop)))))]
     (if (or (empty? cases)
             (empty? (rest survivors))
             (< (lrand) (:lexicase-slippage argmap)))
