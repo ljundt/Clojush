@@ -37,11 +37,17 @@
   (loop [survivors pop
          cases (lshuffle (range (count (:lex-novelty (first pop)))))]
     (if (or (empty? cases)
-            (empty? (rest survivors))
-            (< (lrand) (:lexicase-slippage argmap)))
+            (empty? (rest survivors)))
       (lrand-nth survivors)
       (let [min-err-for-case (apply min (map #(nth % (first cases))
                                              (map :lex-novelty survivors)))]
         (recur (filter #(= (nth (:lex-novelty %) (first cases)) min-err-for-case)
                        survivors)
                (rest cases))))))
+
+;;(novelty-lex-selection '({:lex-novelty (5 1)}
+  ;;                           {:lex-novelty (4 4)}
+    ;;;                         {:lex-novelty (3 3)}
+       ;;                      {:lex-novelty (2 2)}
+         ;;                    {:lex-novelty (2 3)})
+           ;;                {})
