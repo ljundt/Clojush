@@ -21,7 +21,7 @@
                    :novelty-search (novelty-tournament-selection preselected argmap)
                    :uniform (lrand-nth preselected)
                    :novelty-lexicase (novelty-lex-selection preselected argmap)  ;;LJ added option
-                   :novelty-dist (novelty-lex-selection preselected argmap)
+                   :novelty-dist (novelty-dist-selection preselected argmap)     ;;LJ added option
                    (throw (Exception. (str "Unrecognized argument for parent-selection: "
                                            parent-selection))))]
     (when print-selection-counts
