@@ -187,7 +187,7 @@
   {:error-function replace-space-with-newline-error-function
    :atom-generators replace-space-with-newline-atom-generators
    :max-points 3200
-   :max-genome-size-in-initial-program 200
+   :max-genome-size-in-initial-program 400
    :evalpush-limit 1600
    :population-size 1000
    :max-generations 300

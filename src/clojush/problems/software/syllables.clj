@@ -173,6 +173,7 @@
    :population-size 1000
    :max-generations 300
    :parent-selection :lexicase
+   :individuals-for-novelty-archive-per-generation 1
    :genetic-operator-probabilities {:alternation 0.2
                                     :uniform-mutation 0.2
                                     :uniform-close-mutation 0.1
