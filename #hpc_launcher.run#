@@ -1,4 +1,4 @@
-#PBS -N NLex-scrabble
+PBS -N N-Dist-replace
 #PBS -l nodes=1:ppn=8
 #PBS -l mem=20GB
 #PBS -q una
@@ -16,17 +16,17 @@
 NP=`cat $PBS_NODEFILE | wc -l`  # Bash syntax
 #setenv NP `cat $PBS_NODEFILE | wc -l` # tcsh/csh syntax
 
-#NAMESPACE="replace-space-with-newline"
+NAMESPACE="replace-space-with-newline"
 #NAMESPACE="syllables"
 #NAMESPACE="vector-average"
 #NAMESPACE="x-word-lines"
 #NAMESPACE="double-letters"
 #NAMESPACE="mirror-image"
 #NAMESPACE="last-index-of-zero"
-NAMESPACE="scrabble-score"
+#NAMESPACE="scrabble-score"
 
-#SELECTION="novelty-dist"
-SELECTION="novelty-lexicase"
+SELECTION="novelty-dist"
+#SELECTION="novelty-lexicase"
 
 DIRECTORY="$PBS_O_HOME/Results/$SELECTION/$NAMESPACE"
 
