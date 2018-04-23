@@ -1,4 +1,4 @@
-#PBS -N NLex-scrabble
+#PBS -N NLex-sum-squares
 #PBS -l nodes=1:ppn=8
 #PBS -l mem=20GB
 #PBS -q una
@@ -23,7 +23,11 @@ NP=`cat $PBS_NODEFILE | wc -l`  # Bash syntax
 #NAMESPACE="double-letters"
 #NAMESPACE="mirror-image"
 #NAMESPACE="last-index-of-zero"
-NAMESPACE="scrabble-score"
+#NAMESPACE="scrabble-score"
+#NAMESPACE="compare-string-lengths"
+#NAMESPACE="negative-to-zero"
+#NAMESPACE="count-odds"
+NAMESPACE="sum-of-squares"
 
 #SELECTION="novelty-dist"
 SELECTION="novelty-lexicase"
